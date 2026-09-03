@@ -1,0 +1,74 @@
+spring:
+  application:
+    name: ai-exam-backend
+
+  # ========== 数据源配置 ==========
+  datasource:
+    # PostgreSQL JDBC 驱动
+    driver-class-name: org.postgresql.Driver
+    # ai_exam 库，指定 exam schema
+    url: jdbc:postgresql://localhost:15432/ai_exam?currentSchema=exam
+    # 专用业务用户，不要用 postgres 超级用户
+    username: aiexam
+    password: AiExam@2026!
+
+    # ---------- Hikari 连接池 ----------
+    hikari:
+      pool-name: AiExamHikariPool
+      maximum-pool-size: 20        # 最大连接数
+      minimum-idle: 5              # 最小空闲连接
+      connection-timeout: 30000    # 获取连接超时（ms）
+      idle-timeout: 600000         # 空闲连接回收超时（ms）
+      max-lifetime: 1800000        # 连接最大生命周期（ms）
+
+# ========== Web 服务配置 ==========
+server:
+  port: 9096                       # 启动端口
+  servlet:
+    context-path: /api             # 全局接口前缀 → /api/xxx
+
+# SpringDoc OpenAPI（Swagger）配置
+# 用于自动生成接口文档
+springdoc:
+  swagger-ui:
+    # Swagger UI 访问路径
+    path: /swagger-ui.html
+    # API 标签排序方式（按字母顺序）
+    tags-sorter: alpha
+  api-docs:
+    # API 文档 JSON 地址
+    path: /v3/api-docs
+  group-configs:
+    # API 分组配置
+    - group: 'default'          # 分组名称
+      paths-to-match: '/**'     # 匹配的接口路径
+      packages-to-scan: 'com.del.edu.aiexambackend.web.controller' # 扫描的 Controller 包
+
+# Knife4j 配置（Swagger 增强 UI）
+# 提供更友好的接口文档界面
+knife4j:
+  # 是否启用 Knife4j
+  enable: true
+  setting:
+    # 界面语言设置
+    language: zh_cn
+
+# ========== MyBatis-Plus 配置 ==========
+mybatis-plus:
+  configuration:
+    # 控制台打印 SQL（开发用，生产建议关闭或切 LOG4J2）
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+  # 实体类别名包，XML 里直接写类名
+  type-aliases-package: com.del.edu.aiexambackend.model.entity
+
+  # Mapper XML 扫描路径
+  mapper-locations: classpath:/mapper/*.xml
+
+  global-config:
+    db-config:
+      # 逻辑删除字段名（实体属性名）
+      logic-delete-field: isDelete
+      # 已删除 → 1，未删除 → 0
+      logic-delete-value: 1
+      logic-not-delete-value: 0
