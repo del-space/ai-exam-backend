@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.del.edu.aiexambackend.mapper.AnswerMapper">
+
+    <resultMap id="BaseResultMap" type="com.del.edu.aiexambackend.model.entity.Answer">
+            <id property="id" column="id" />
+            <result property="tenantId" column="tenant_id" />
+            <result property="recordId" column="record_id" />
+            <result property="questionId" column="question_id" />
+            <result property="userAnswer" column="user_answer" />
+            <result property="score" column="score" />
+            <result property="aiScore" column="ai_score" />
+            <result property="aiFeedback" column="ai_feedback" />
+            <result property="aiConfidence" column="ai_confidence" />
+            <result property="aiModel" column="ai_model" />
+            <result property="aiRawResponse" column="ai_raw_response" />
+            <result property="manualScore" column="manual_score" />
+            <result property="reviewed" column="reviewed" />
+            <result property="reviewerId" column="reviewer_id" />
+            <result property="reviewedAt" column="reviewed_at" />
+            <result property="isDelete" column="is_delete" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+            <result property="editTime" column="edit_time" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,tenant_id,record_id,question_id,user_answer,score,
+        ai_score,ai_feedback,ai_confidence,ai_model,ai_raw_response,
+        manual_score,reviewed,reviewer_id,reviewed_at,is_delete,
+        create_time,update_time,edit_time
+    </sql>
+</mapper>
