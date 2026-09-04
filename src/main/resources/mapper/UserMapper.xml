@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.del.edu.aiexambackend.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.del.edu.aiexambackend.model.entity.User">
+            <id property="id" column="id" />
+            <result property="tenantId" column="tenant_id" />
+            <result property="username" column="username" />
+            <result property="password" column="password" />
+            <result property="realName" column="real_name" />
+            <result property="email" column="email" />
+            <result property="phone" column="phone" />
+            <result property="role" column="role" />
+            <result property="enabled" column="enabled" />
+            <result property="lastLoginTime" column="last_login_time" />
+            <result property="lastLoginIp" column="last_login_ip" />
+            <result property="lastLoginDevice" column="last_login_device" />
+            <result property="isDelete" column="is_delete" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+            <result property="editTime" column="edit_time" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,tenant_id,username,password,real_name,email,
+        phone,role,enabled,last_login_time,last_login_ip,
+        last_login_device,is_delete,create_time,update_time,edit_time
+    </sql>
+</mapper>
