@@ -1,9 +1,8 @@
 package com.del.edu.aiexambackend.model.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.*;
+
+import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
@@ -16,7 +15,7 @@ public class QuestionBank {
     /**
      * 主键ID
      */
-    @TableId
+    @TableId(value = "id", type = IdType.INPUT)
     private String id;
 
     /**
@@ -48,22 +47,26 @@ public class QuestionBank {
      * 是否删除
      */
     @TableLogic
+    @TableField(fill = FieldFill.INSERT)
     private Integer isDelete;
 
     /**
      * 创建时间
      */
-    private Date createTime;
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
-    private Date updateTime;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
     /**
      * 编辑时间
      */
-    private Date editTime;
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime editTime;
 
     @Override
     public boolean equals(Object that) {

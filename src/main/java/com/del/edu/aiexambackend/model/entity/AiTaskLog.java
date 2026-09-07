@@ -1,7 +1,7 @@
 package com.del.edu.aiexambackend.model.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
 import lombok.Data;
 
@@ -15,7 +15,7 @@ public class AiTaskLog {
     /**
      * 主键ID
      */
-    @TableId
+    @TableId(value = "id", type = IdType.INPUT)
     private String id;
 
     /**
@@ -81,6 +81,7 @@ public class AiTaskLog {
     /**
      * 创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
     @Override
