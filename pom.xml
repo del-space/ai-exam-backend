@@ -39,6 +39,20 @@
             <version>3.5.17</version>
         </dependency>
 
+        <!-- MyBatis-Plus JSQLParser 依赖，用于解析SQL语句 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-jsqlparser</artifactId>
+            <version>3.5.17</version>
+        </dependency>
+
+        <!-- MyBatis-Plus DB Helper 依赖，用于简化数据库操作 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+
         <!-- Hutool 依赖，用于简化Java开发，提供丰富的工具类 -->
         <dependency>
             <groupId>cn.hutool</groupId>
@@ -51,6 +65,25 @@
             <groupId>org.mindrot</groupId>
             <artifactId>jbcrypt</artifactId>
             <version>0.4</version>
+        </dependency>
+
+        <!-- JWT 依赖，用于生成和解析JWT -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.11.5</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.11.5</version>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Lombok 依赖，用于简化Java代码，自动生成getter、setter等方法 -->
