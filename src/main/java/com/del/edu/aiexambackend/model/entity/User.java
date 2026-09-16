@@ -10,7 +10,7 @@ import lombok.Data;
  * 用户表
  * @TableName user
  */
-@TableName(value ="user")
+@TableName(value = "exam.\"user\"")
 @Data
 public class User {
     /**

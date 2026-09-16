@@ -18,7 +18,20 @@ public enum ErrorCode {
     NOT_FOUND_ERROR(40400, "请求资源不存在"),
     FORBIDDEN_ERROR(40300, "禁止访问"),
     SYSTEM_ERROR(50000, "系统内部错误"),
-    OPERATION_ERROR(50001, "操作失败");
+    OPERATION_ERROR(50001, "操作失败"),
+    CAPTCHA_GENERATE_ERROR(50010, "验证码生成失败"),
+    CAPTCHA_VERIFY_ERROR(50011, "验证码校验失败"),
+
+    // ===== 用户相关 =====
+    USER_NOT_FOUND(40110, "用户不存在"),
+    USER_PASSWORD_ERROR(40111, "用户名或密码错误"),
+    USER_DISABLED(40112, "账号已被禁用"),
+    USER_ALREADY_EXISTS(40113, "用户名已存在"),
+
+    // ===== 租户相关 =====
+    TENANT_NOT_FOUND(40410, "租户不存在"),
+    TENANT_DISABLED(40411, "租户已被禁用"),
+    TENANT_EXPIRED(40412, "租户已过期");
 
     /**
      * 错误码

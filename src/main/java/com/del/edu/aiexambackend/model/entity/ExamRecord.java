@@ -11,7 +11,7 @@ import lombok.Data;
  * 考试记录表
  * @TableName exam_record
  */
-@TableName(value ="exam_record")
+@TableName(value = "exam.\"exam_record\"")
 @Data
 public class ExamRecord {
     /**

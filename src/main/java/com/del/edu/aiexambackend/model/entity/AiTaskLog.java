@@ -9,7 +9,7 @@ import lombok.Data;
  * AI调用日志表
  * @TableName ai_task_log
  */
-@TableName(value ="ai_task_log")
+@TableName(value = "exam.\"ai_task_log\"")
 @Data
 public class AiTaskLog {
     /**
