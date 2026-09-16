@@ -1,7 +1,8 @@
 package com.del.edu.aiexambackend.model.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.Data;
 
@@ -9,13 +10,13 @@ import lombok.Data;
  * 租户/机构表
  * @TableName tenant
  */
-@TableName(value ="tenant")
+@TableName(value = "exam.\"tenant\"")
 @Data
 public class Tenant {
     /**
      * 主键ID
      */
-    @TableId
+    @TableId(value = "id", type = IdType.INPUT)
     private String id;
 
     /**
@@ -41,7 +42,8 @@ public class Tenant {
     /**
      * 创建时间
      */
-    private Date createTime;
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
 
     @Override
     public boolean equals(Object that) {
