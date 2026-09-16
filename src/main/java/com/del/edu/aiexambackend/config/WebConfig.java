@@ -23,20 +23,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Resource
     private TenantInterceptor tenantInterceptor;
 
-    /**
-     * 配置拦截器
-     * @paramInterceptorRegistry 拦截器注册器，用于注册各种拦截器
-     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 注册租户拦截器
         registry.addInterceptor(tenantInterceptor)
                 // 拦截所有/api/路径下的请求
-                .addPathPatterns("/api/**")
-                // 排除登录和注册接口，不进行拦截
-                .excludePathPatterns(
-                        "/api/auth/login",
-                        "/api/auth/register"
-                );
+                .addPathPatterns("/api/**");
     }
 }

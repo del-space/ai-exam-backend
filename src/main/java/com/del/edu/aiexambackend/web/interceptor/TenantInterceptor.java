@@ -3,13 +3,16 @@ package com.del.edu.aiexambackend.web.interceptor;
 
 import com.del.edu.aiexambackend.common.context.TenantContext;
 import com.del.edu.aiexambackend.common.context.UserContext;
-import com.del.edu.aiexambackend.common.utils.JwtUtil;
+import com.del.edu.aiexambackend.common.utils.security.JwtUtil;
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import java.util.Set;
 
 /**
  * 租户拦截器
@@ -19,6 +22,17 @@ import org.springframework.web.servlet.HandlerInterceptor;
  */
 @Component
 public class TenantInterceptor implements HandlerInterceptor {
+
+    @Resource
+    private JwtUtil jwtUtil;
+
+    /** 不需要登录就能访问的接口白名单（已经是完整路径，含 /api 前缀） */
+    private static final Set<String> WHITE_LIST = Set.of(
+            "/api/auth/login",
+            "/api/auth/register",
+            "/api/captcha/generate",
+            "/api/captcha/verify"
+    );
 
     /**
      * 请求前置处理方法
@@ -30,19 +44,51 @@ public class TenantInterceptor implements HandlerInterceptor {
      * @throws Exception 可能抛出的异常
      */
     @Override
-    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception {
+    public boolean preHandle(@NonNull HttpServletRequest request,
+                             @NonNull HttpServletResponse response,
+                             @NonNull Object handler) throws Exception {
+        // 获取请求的URL
+        String url = request.getRequestURI();
+
         // 从请求头中获取Authorization字段
         String auth = request.getHeader("Authorization");
-        // 检查Authorization字段是否存在且以"Bearer "开头
-        if (auth != null && auth.startsWith("Bearer ")) {
-            // 提取JWT令牌（去掉"Bearer "前缀）
-            String token = auth.substring(7);
-            // 解析令牌中的租户ID并设置到租户上下文中
-            TenantContext.setTenantId(JwtUtil.parseTenantId(token));
-            // 解析令牌中的用户ID并设置到用户上下文中
-            UserContext.setUserId(JwtUtil.parseUserId(token));
+
+        if (auth == null || !auth.startsWith("Bearer ")) {
+            if (WHITE_LIST.contains(url)) {
+                return true;
+            }
+            writeUnauthorized(response, "未登录");
+            return false;
         }
-        return true; // 继续后续处理流程
+
+        // 带了 token：尝试解析，失败一律返回 401
+        String token = auth.substring(7);
+        try {
+            String tenantId = jwtUtil.parseTenantId(token);
+            String userId = jwtUtil.parseUserId(token);
+            TenantContext.setTenantId(tenantId);
+            UserContext.setUserId(userId);
+            return true;
+        } catch (Exception e) {
+            writeUnauthorized(response, "登录已过期或 token 无效");
+            return false;
+        }
+    }
+
+
+    /**
+     * 向客户端返回未授权错误响应
+     * @param response HttpServletResponse对象，用于向客户端发送响应
+     * @param message 错误信息，将被包含在响应中
+     * @throws Exception 可能由response.getWriter()操作抛出的异常
+     */
+    private void writeUnauthorized(HttpServletResponse response, String message) throws Exception {
+        // 设置HTTP响应状态码为401（未授权）
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        // 设置响应内容类型为JSON，并指定字符编码为UTF-8
+        response.setContentType("application/json;charset=UTF-8");
+        // 向响应输出流写入JSON格式的错误信息
+        response.getWriter().write("{\"code\":401,\"message\":\"" + message + "\"}");
     }
 
     /**
@@ -55,7 +101,10 @@ public class TenantInterceptor implements HandlerInterceptor {
      * @throws Exception 可能抛出的异常
      */
     @Override
-    public void afterCompletion(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler, @Nullable Exception ex) throws Exception {
+    public void afterCompletion(@NonNull HttpServletRequest request,
+                                @NonNull HttpServletResponse response,
+                                @NonNull Object handler,
+                                @Nullable Exception ex) throws Exception {
         // 清除租户上下文
         TenantContext.clear();
         // 清除用户上下文

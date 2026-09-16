@@ -2,7 +2,7 @@ package com.del.edu.aiexambackend.config.handler;
 
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.del.edu.aiexambackend.common.utils.SnowflakeIdGenerator;
+import com.del.edu.aiexambackend.common.utils.id.SnowflakeIdGenerator;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.context.annotation.Configuration;

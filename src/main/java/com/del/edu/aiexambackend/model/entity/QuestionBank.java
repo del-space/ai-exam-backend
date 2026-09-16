@@ -9,7 +9,7 @@ import lombok.Data;
  * 题库表
  * @TableName question_bank
  */
-@TableName(value ="question_bank")
+@TableName(value = "exam.\"question_bank\"")
 @Data
 public class QuestionBank {
     /**

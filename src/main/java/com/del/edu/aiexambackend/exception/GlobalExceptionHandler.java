@@ -2,7 +2,7 @@ package com.del.edu.aiexambackend.exception;
 
 
 import com.del.edu.aiexambackend.common.BaseResponse;
-import com.del.edu.aiexambackend.common.utils.ResultUtils;
+import com.del.edu.aiexambackend.common.utils.result.ResultUtils;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;

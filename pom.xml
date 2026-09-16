@@ -86,6 +86,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- 验证码相关依赖配置 -->
+        <dependency>
+            <groupId>cloud.tianai.captcha</groupId>
+            <artifactId>tianai-captcha-springboot-starter</artifactId>
+            <version>1.5.5</version>
+        </dependency>
+
         <!-- Lombok 依赖，用于简化Java代码，自动生成getter、setter等方法 -->
         <dependency>
             <groupId>org.projectlombok</groupId>

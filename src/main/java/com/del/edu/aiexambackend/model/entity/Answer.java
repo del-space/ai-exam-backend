@@ -11,7 +11,7 @@ import lombok.Data;
  * 答题详情表
  * @TableName answer
  */
-@TableName(value ="answer")
+@TableName(value = "exam.\"answer\"")
 @Data
 public class Answer {
     /**

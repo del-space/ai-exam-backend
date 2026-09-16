@@ -9,7 +9,7 @@ import lombok.Data;
  * 考试题目关联表
  * @TableName exam_question
  */
-@TableName(value ="exam_question")
+@TableName(value = "exam.\"exam_question\"")
 @Data
 public class ExamQuestion {
     /**

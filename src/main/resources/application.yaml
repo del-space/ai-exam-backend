@@ -7,7 +7,7 @@ spring:
     # PostgreSQL JDBC 驱动
     driver-class-name: org.postgresql.Driver
     # ai_exam 库，指定 exam schema
-    url: jdbc:postgresql://localhost:15432/ai_exam?currentSchema=exam
+    url: jdbc:postgresql://localhost:15432/ai_exam?currentSchema=exam&searchpath=exam
     # 专用业务用户，不要用 postgres 超级用户
     username: aiexam
     password: AiExam@2026!
@@ -85,3 +85,42 @@ pagehelper:
   params: count=countSql
   # 自动获取数据库方言，根据数据源自动识别
   auto-dialect: true
+
+# ========== 验证码配置 ==========
+captcha:
+  # 使用系统自带默认模版资源
+  init-default-resource: true
+  # redis key 前缀
+  prefix: captcha
+  # 过期时间
+  expire:
+    # 默认 2 分钟
+    default: 120000
+    # 点选验证码 2 分钟
+    WORD_IMAGE_CLICK: 120000
+  # 本地缓存（单机用，不用 redis 也能跑）
+  local-cache-enabled: false
+  # 二次验证
+  secondary:
+    # 启用二次验证
+    enabled: true
+    # 二次验证过期时间，默认 2 分钟
+    expire: 120000
+    # 二次验证缓存 key 前缀，默认是 captcha:secondary
+    key-prefix: captcha:secondary
+
+jwt:
+  secret: ${JWT_SECRET:your-secret-key-your-secret-key-your-secret-key}
+  expire: 86400000  # 24h（毫秒）
+
+# ========== 启动自检：超级管理员 ==========
+# 用于首次启动时自动创建平台租户 + 超级管理员账号。
+# 已有任何一条 SUPER_ADMIN 时自动跳过；不需要可设 enabled=false。
+bootstrap:
+  super-admin:
+    enabled: true
+    tenant-code: PLATFORM
+    tenant-name: Platform
+    username: superadmin
+    password: Admin@2026
+    real-name: 超级管理员

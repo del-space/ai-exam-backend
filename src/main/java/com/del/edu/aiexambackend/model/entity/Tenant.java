@@ -10,7 +10,7 @@ import lombok.Data;
  * 租户/机构表
  * @TableName tenant
  */
-@TableName(value ="tenant")
+@TableName(value = "exam.\"tenant\"")
 @Data
 public class Tenant {
     /**
